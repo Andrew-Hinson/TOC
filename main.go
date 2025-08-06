@@ -1,42 +1,23 @@
 package main
 
 import (
-	"context"
-	"fmt"
+	"log"
 	"net/http"
 
-	"github.com/adriancable/webtransport-go"
+	"github.com/Andrew-Hinson/toc/services/auth"
 )
 
 func main() {
-	server := &webtransport.Server{
-		ListenAddr: ":4433",
-		TLSCert:    webtransport.CertFile{Path: "cert.pem"},
-		TLSKey:     webtransport.CertFile{Path: "cert.key"},
+	log.Println("Starting HTTP Server...")
+	server := &http.Server{
+		Addr:    ":8080",
+		Handler: auth.New(),
 	}
 
-	http.HandleFunc("/echo", func(rw http.ResponseWriter, r *http.Request) {
-		session := r.Body.(*webtransport.Session)
-		session.AcceptSession()
-		defer session.CloseSession()
-
-		stream, err := session.AcceptStream()
-		if err != nil {
-			return
-		}
-
-		buf := make([]byte, 1024)
-		for {
-			n, err := stream.Read(buf)
-			if err != nil {
-				break
-			}
-			fmt.Printf("Received: %s\n", buf[:n])
-			stream.Write(buf[:n])
-		}
-	})
-
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	server.Run(ctx)
+	log.Printf("Started HTTP Server. Listening at %q", server.Addr)
+	if err := server.ListenAndServe(); err != http.ErrServerClosed {
+		log.Printf("%v", err)
+	} else {
+		log.Println("Server closed")
+	}
 }
