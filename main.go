@@ -9,34 +9,15 @@ import (
 )
 
 func main() {
-	server := &webtransport.Server{
-		ListenAddr: ":4433",
-		TLSCert:    webtransport.CertFile{Path: "cert.pem"},
-		TLSKey:     webtransport.CertFile{Path: "cert.key"},
+	server := &http.Server{
+		Addr := fmt.Sprintf("8000")
+		Handler: handlers.New()
 	}
 
-	http.HandleFunc("/echo", func(rw http.ResponseWriter, r *http.Request) {
-		session := r.Body.(*webtransport.Session)
-		session.AcceptSession()
-		defer session.CloseSession()
-
-		stream, err := session.AcceptStream()
-		if err != nil {
-			return
-		}
-
-		buf := make([]byte, 1024)
-		for {
-			n, err := stream.Read(buf)
-			if err != nil {
-				break
-			}
-			fmt.Printf("Received: %s\n", buf[:n])
-			stream.Write(buf[:n])
-		}
-	})
-
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	server.Run(ctx)
+	log.Printf("Starting HTTP Server. Listening at %q", server.Addr)
+	if err := server.ListenAndServe(); err != http.ErrServerClosed {
+		log.Printf("%v", err)
+	} else {
+		log.Println("Server closed")
+	}
 }
