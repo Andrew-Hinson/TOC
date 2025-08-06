@@ -1,17 +1,17 @@
 package main
 
 import (
-	"context"
 	"fmt"
+	"log"
 	"net/http"
 
-	"github.com/adriancable/webtransport-go"
+	"github.com/Andrew-Hinson/toc/services/auth"
 )
 
 func main() {
 	server := &http.Server{
-		Addr := fmt.Sprintf("8000")
-		Handler: handlers.New()
+		Addr:    fmt.Sprintf(":8000"),
+		Handler: auth.New(),
 	}
 
 	log.Printf("Starting HTTP Server. Listening at %q", server.Addr)
