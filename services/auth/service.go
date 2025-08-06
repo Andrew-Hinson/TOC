@@ -37,7 +37,7 @@ func New() http.Handler {
 	mux.HandleFunc("/auth/google/login", app.oauthGoogleLogin)
 	mux.HandleFunc("/auth/google/callback", app.oauthGoogleCallback)
 
-	http.ListenAndServe(":8080", mux)
+	return mux
 }
 
 func (a *App) loginHandler(w http.ResponseWriter, r *http.Request) {
