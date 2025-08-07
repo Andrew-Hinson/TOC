@@ -11,3 +11,29 @@ guide members of an active tactical element during a mission.
 ```
 
 More details coming soon.
+
+toc/
+├── server/
+│   ├── services/
+│   │   ├── chat/
+│   │   │   ├── hub.go
+│   │   │   ├── client.go
+│   │   │   └── handlers.go
+│   │   └── auth/
+│   │       └── service.go
+│   ├── main.go
+│   ├── go.mod
+│   └── go.sum
+├── client/
+│   ├── src/
+│   │   ├── main.js
+│   │   ├── websocket.js
+│   │   └── ui/
+│   │       ├── chat.js
+│   │       └── styles.css
+│   ├── package.json
+│   └── index.html
+├── shared/
+│   ├── protocol.go
+│   └── protocol.ts
+└── README.md

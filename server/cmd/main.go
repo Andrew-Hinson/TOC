@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Andrew-Hinson/toc/services/auth"
+	"github.com/Andrew-Hinson/toc/server/services/auth"
 )
 
 func main() {
