@@ -12,8 +12,12 @@ guide members of an active tactical element during a mission.
 
 More details coming soon.
 
+WIP monorepo structure
+
 toc/
 ├── server/
+|   ├── cmd/
+|   |   ├──main.go
 │   ├── services/
 │   │   ├── chat/
 │   │   │   ├── hub.go
@@ -21,7 +25,6 @@ toc/
 │   │   │   └── handlers.go
 │   │   └── auth/
 │   │       └── service.go
-│   ├── main.go
 │   ├── go.mod
 │   └── go.sum
 ├── client/
