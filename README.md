@@ -12,4 +12,7 @@ guide members of an active tactical element during a mission.
 
 More details coming soon.
 
-
+## Local testing
+1. run server - ``` go run server/cmd/main.go ```
+2. ```brew install websocat``` then run:
+``` websocat ws://localhost:8080/ws ```
