@@ -6,10 +6,20 @@ import (
 
 	"github.com/Andrew-Hinson/toc/server/server/services/chat"
 	"github.com/Andrew-Hinson/toc/server/server/services/routes"
+	sqliteStore "github.com/Andrew-Hinson/toc/server/server/services/storage/sqlite"
 )
 
 func main() {
 	log.Println("Starting toc server...")
+
+	db, err := sqliteStore.Open("./data/toc.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+	if err := sqliteStore.Migrate(db); err != nil {
+		log.Fatal(err)
+	}
 
 	hub := chat.NewHub()
 	go hub.Run()
