@@ -28,16 +28,11 @@ var googleOauthConfig = &oauth2.Config{
 
 const oauthGoogleUrlAPI = "https://www.googleapis.com/oauth2/v2/userinfo?access_token="
 
-func New() http.Handler {
-	mux := http.NewServeMux()
+func Register(mux *http.ServeMux) {
 	app := App{}
-
 	mux.HandleFunc("GET /auth/login", app.loginHandler)
-
 	mux.HandleFunc("/auth/google/login", app.oauthGoogleLogin)
 	mux.HandleFunc("/auth/google/callback", app.oauthGoogleCallback)
-
-	return mux
 }
 
 func (a *App) loginHandler(w http.ResponseWriter, r *http.Request) {
